@@ -46,7 +46,6 @@ module.exports.updateUser = (req, res) => {
     .then((updatedUser) => {
       if (!updatedUser) {
         res.status(404).send({ message: 'Пользователь с данным _id не обнаружен' });
-        return;
       }
       res.send({ updatedUser });
     })
@@ -66,7 +65,6 @@ module.exports.updateUserAvatar = (req, res) => {
     .then((updatedUser) => {
       if (!updatedUser) {
         res.status(404).send({ message: 'Пользователь с данным _id не обнаружен' });
-        return;
       }
       res.send({ updatedUser });
     })

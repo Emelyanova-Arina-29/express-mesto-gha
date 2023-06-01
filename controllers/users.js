@@ -47,7 +47,7 @@ module.exports.updateUser = (req, res) => {
       if (!updatedUser) {
         res.status(404).send({ message: 'Пользователь с данным _id не обнаружен' });
       }
-      res.send({ updatedUser });
+      res.status(200).send({ updatedUser });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -66,7 +66,7 @@ module.exports.updateUserAvatar = (req, res) => {
       if (!updatedUser) {
         res.status(404).send({ message: 'Пользователь с данным _id не обнаружен' });
       }
-      res.send({ updatedUser });
+      res.status(200).send({ updatedUser });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

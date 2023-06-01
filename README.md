@@ -16,4 +16,4 @@
 
 **Ссылка на GitHub репозиторий**
 
-[Ссылка на GitHub репозиторий](git@github.com:Emelyanova-Arina-29/express-mesto-gha.git)
+[Ссылка на GitHub репозиторий](https://github.com/Emelyanova-Arina-29/express-mesto-gha)

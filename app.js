@@ -1,16 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const userRouter = require('./routes/users');
-const cardRouter = require('./routes/cards');
+const http2Constants = require('http2').constants;
+const router = require('./routes/routes');
+
+const {
+  HTTP_STATUS_NOT_FOUND,
+} = http2Constants;
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
 app.use(express.json());
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   req.user = {
@@ -20,12 +21,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', userRouter);
-
-app.use('/', cardRouter);
+app.use('/', router);
 
 app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Страница не найдена' });
+  res.status(HTTP_STATUS_NOT_FOUND).send({ message: 'Страница не найдена' });
 });
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {

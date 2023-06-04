@@ -21,7 +21,7 @@ router.post('/signin', validationSigIn, login);
 router.use('/users', auth, userRouter);
 router.use('/cards', auth, cardRouter);
 
-router.use('*', () => {
+router.use('*', auth, () => {
   throw new NotFoundError('Страница не найдена');
 });
 

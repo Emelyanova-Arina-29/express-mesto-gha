@@ -10,7 +10,6 @@ const {
 } = require('../errors/errors');
 
 const {
-  HTTP_STATUS_OK,
   HTTP_STATUS_CREATED,
 } = http2Constants;
 
@@ -56,7 +55,7 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getAllUsers = (req, res, next) => {
   user.find({})
-    .then((users) => res.status(HTTP_STATUS_OK).send({ data: users }))
+    .then((users) => res.send({ data: users }))
     .catch(next);
 };
 
@@ -66,7 +65,7 @@ module.exports.getUserMe = (req, res, next) => {
       if (!User) {
         return next(new NotFoundError('Пользователь с данным _id не обнаружен'));
       }
-      return res.status(HTTP_STATUS_OK).send({ User });
+      return res.send({ User });
     })
     .catch(next);
 };
@@ -78,7 +77,7 @@ module.exports.getUserById = (req, res, next) => {
       if (!foundUser) {
         return next(new NotFoundError('Пользователь с данным _id не обнаружен'));
       }
-      return res.status(HTTP_STATUS_OK).send({ foundUser });
+      return res.send({ foundUser });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -97,7 +96,7 @@ module.exports.updateUser = (req, res, next) => {
       if (!updatedUser) {
         return next(new NotFoundError('Пользователь с данным _id не обнаружен'));
       }
-      return res.status(HTTP_STATUS_OK).send({ updatedUser });
+      return res.send({ updatedUser });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -116,7 +115,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
       if (!updatedUser) {
         return next(new NotFoundError('Пользователь с данным _id не обнаружен'));
       }
-      return res.status(HTTP_STATUS_OK).send({ updatedUser });
+      return res.send({ updatedUser });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

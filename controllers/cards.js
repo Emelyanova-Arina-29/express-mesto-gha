@@ -8,7 +8,6 @@ const {
 } = require('../errors/errors');
 
 const {
-  HTTP_STATUS_OK,
   HTTP_STATUS_CREATED,
 } = http2Constants;
 
@@ -29,7 +28,7 @@ module.exports.createCard = (req, res, next) => {
 module.exports.getAllCards = (req, res, next) => {
   card.find({})
     .populate('owner')
-    .then((cards) => res.status(HTTP_STATUS_OK).send({ cards }))
+    .then((cards) => res.send({ cards }))
     .catch(next);
 };
 
@@ -44,7 +43,7 @@ module.exports.removeCardById = (req, res, next) => {
         return next(new ForbiddenError('У вас нет прав для удаления этой карточки'));
       }
       return card.findByIdAndRemove(cardId)
-        .then(() => res.status(HTTP_STATUS_OK).send({ deletedCard, message: 'Карточка удалена' }));
+        .then(() => res.send({ deletedCard, message: 'Карточка удалена' }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -65,7 +64,7 @@ module.exports.likeCard = (req, res, next) => {
       if (!likedCard) {
         return next(new NotFoundError('Карточка с данным _id не обнаружена'));
       }
-      return res.status(HTTP_STATUS_OK).send({ likedCard, message: 'Лайк поставлен' });
+      return res.send({ likedCard, message: 'Лайк поставлен' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -86,7 +85,7 @@ module.exports.deleteLikeCard = (req, res, next) => {
       if (!dislikedCard) {
         return next(new NotFoundError('Карточка с данным _id не обнаружена'));
       }
-      return res.status(HTTP_STATUS_OK).send({ dislikedCard, message: 'Лайк удален' });
+      return res.send({ dislikedCard, message: 'Лайк удален' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
